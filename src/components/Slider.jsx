@@ -1,6 +1,7 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from "styled-components";
 import {KeyboardArrowLeft, KeyboardArrowRight} from "@material-ui/icons";
+import {sliderItems} from "../data/sliderItems";
 const Container = styled.div `
       width: 100%;
       height: 100vh;
@@ -26,13 +27,15 @@ const Arrow = styled.div `
     margin: auto;
     cursor: pointer;
     opacity: 0.5;
+    z-index: 2;
     
 `;
 
 const Wrapper = styled.div`
     height: 100%;
     display: flex;
-    transform: translateX(0vw);
+    transform: translateX(${(props) => props.slideIndex * -100}vw);
+    transition: all 1.5s ease;
 
 `;
 
@@ -41,7 +44,7 @@ const Slide = styled.div`
     height: 100vh;
     display: flex;
     align-items: center;
-    background-color: ghostwhite;
+    background-color: #${props => props.bg};
 `;
 const ImgContainer = styled.div`
     height: 100%;
@@ -76,9 +79,13 @@ const Button = styled.button`
 `;
 
 const Slider = () => {
-
-    const handleClick = (direction) =>{
-
+    const [slideIndex, setSlideIndex] = useState(0);
+    const handleClick = (direction) => {
+        if (direction === "left") {
+            setSlideIndex(slideIndex > 0 ? slideIndex - 1 : 2);
+        } else {
+            setSlideIndex(slideIndex < 2 ? slideIndex + 1 : 0);
+        }
     };
 
     return (
@@ -86,37 +93,20 @@ const Slider = () => {
             <Arrow direction = "left" onClick={() => handleClick("left")}>
                 <KeyboardArrowLeft/>
             </Arrow>
-            <Wrapper>
-                <Slide bg>
-                    <ImgContainer>
-                        <Image src={"https://m.media-amazon.com/images/I/71zHiJq0XfL._AC_SX425_.jpg"}/>
-                    </ImgContainer>
-                    <InfoContainer>
-                        <Title>titulo 1</Title>
-                        <Desc>aprovecha</Desc>
-                        <Button>mas velas</Button>
-                    </InfoContainer>
-                </Slide>
-                <Slide>
-                    <ImgContainer>
-                        <Image src={"https://m.media-amazon.com/images/I/71zHiJq0XfL._AC_SX425_.jpg"}/>
-                    </ImgContainer>
-                    <InfoContainer>
-                        <Title>titulo 1</Title>
-                        <Desc>aprovecha</Desc>
-                        <Button>mas velas</Button>
-                    </InfoContainer>
-                </Slide>
-                <Slide>
-                    <ImgContainer>
-                        <Image src={"https://m.media-amazon.com/images/I/71zHiJq0XfL._AC_SX425_.jpg"}/>
-                    </ImgContainer>
-                    <InfoContainer>
-                        <Title>titulo 1</Title>
-                        <Desc>aprovecha</Desc>
-                        <Button>mas velas</Button>
-                    </InfoContainer>
-                </Slide>
+            <Wrapper slideIndex = {slideIndex}>
+                {sliderItems.map((item)=>(
+                    <Slide bg={item.bg} key={item.id}>
+                        <ImgContainer>
+                            <Image src={item.img}/>
+                        </ImgContainer>
+                        <InfoContainer>
+                            <Title>{item.title}</Title>
+                            <Desc>{item.desc}</Desc>
+                            <Button>mas velas</Button>
+                        </InfoContainer>
+                    </Slide>
+                ))}
+
             </Wrapper>
             <Arrow direction = "right" onClick={() => handleClick("right")}>
                 <KeyboardArrowRight/>
