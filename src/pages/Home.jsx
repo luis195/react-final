@@ -6,6 +6,7 @@ import Slider from "../components/Slider";
 import Products from "../components/Products";
 import Newsletter from "../components/Newsletter";
 import Footer from "../components/Footer";
+import {BrowserRouter} from "react-router-dom";
 
 
 
@@ -13,13 +14,12 @@ import Footer from "../components/Footer";
 const Home = () => {
     return (
         <div>
-            <Announcement/>
-            <Navbar/>
-            <Slider/>
-            <Categories/>
-            <Products/>
-            <Newsletter/>
-            <Footer/>
+
+                <Slider/>
+                <Categories/>
+                <Products/>
+                <Newsletter/>
+
         </div>
     );
 };

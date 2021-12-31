@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from "styled-components";
 import {Facebook, Instagram, MailOutline, Phone, Pinterest, Room, Twitter} from "@material-ui/icons";
+import {Link} from "@material-ui/core";
 
 const Container = styled.div`
   display: flex;
@@ -100,8 +101,8 @@ const Footer = () => {
             <Center>
                 <Title>Links Utiles</Title>
                 <List>
-                    <ListItem>Inicio</ListItem>
-                    <ListItem>Carrito</ListItem>
+                    <ListItem><Link to = "/">Inicio</Link></ListItem>
+                    <ListItem><Link to = "/cart">Carrito</Link></ListItem>
                     <ListItem>Hombre </ListItem>
                     <ListItem>Mujer </ListItem>
                     <ListItem>Accesorios</ListItem>
